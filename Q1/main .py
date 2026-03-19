@@ -23,7 +23,10 @@ def read_log_file(path: Path) -> List[Dict[str, str]]:
                 rows.append(row)
     return rows
 
-
+def print_logs(rows: List[Dict[str, str]]) -> None:
+    # 로그를 시간 순서대로(정상 순서) 화면에 출력한다.
+    for row in rows:
+        print(f"{row['timestamp']},{row['event']},{row['message']}")
 
 def print_logs_reverse(rows: List[Dict[str, str]]) -> None:
     # 로그를 시간의 역순으로 화면에 출력한다.
@@ -35,7 +38,6 @@ def print_logs_reverse(rows: List[Dict[str, str]]) -> None:
 
 def find_problem_logs(rows: List[Dict[str, str]]) -> List[Dict[str, str]]:
     # 메시지 안의 이상 키워드를 기준으로 문제 로그만 추려낸다.
-    # event 값이 INFO여도 메시지에 폭발·불안정 같은 단어가 있으면 포함한다.
     problems: List[Dict[str, str]] = []
     for row in rows:
         message = row.get("message", "").lower()
@@ -56,13 +58,14 @@ def save_problem_logs(problem_rows: List[Dict[str, str]], output_path: Path) -> 
 
 
 def main() -> int:
-    # 로그를 읽고 역순 출력, 문제 로그 저장까지 전체 흐름을 수행한다.
-    # 예외 발생 시 원인을 출력하고 프로그램을 종료한다.
+    # 로그를 읽고 출력, 역순 출력, 문제 로그 저장까지 전체 흐름을 수행한다.
     log_path = Path("mission_computer_main.log")
     problem_output_path = Path("problem_logs.log")
 
     try:
         rows = read_log_file(log_path)
+        print("[로그 전체 출력 - 시간 순]")
+        print_logs(rows)    
         print("[로그 전체 출력 - 시간 역순]")
         print_logs_reverse(rows)
 
