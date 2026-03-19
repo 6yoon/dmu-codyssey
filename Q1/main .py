@@ -57,7 +57,6 @@ def save_problem_logs(problem_rows: List[Dict[str, str]], output_path: Path) -> 
 
 def main() -> int:
     # 로그를 읽고 역순 출력, 문제 로그 저장까지 전체 흐름을 수행한다.
-    # 예외 발생 시 원인을 출력하고 프로그램을 종료한다.
     log_path = Path("mission_computer_main.log")
     problem_output_path = Path("problem_logs.log")
 
