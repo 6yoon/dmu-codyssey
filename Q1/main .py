@@ -35,7 +35,6 @@ def print_logs_reverse(rows: List[Dict[str, str]]) -> None:
 
 def find_problem_logs(rows: List[Dict[str, str]]) -> List[Dict[str, str]]:
     # 메시지 안의 이상 키워드를 기준으로 문제 로그만 추려낸다.
-    # event 값이 INFO여도 메시지에 폭발·불안정 같은 단어가 있으면 포함한다.
     problems: List[Dict[str, str]] = []
     for row in rows:
         message = row.get("message", "").lower()
