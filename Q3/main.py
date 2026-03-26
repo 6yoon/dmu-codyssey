@@ -223,16 +223,19 @@ def save_to_binary(filename, inventory_list):
 
 
 def read_from_binary(filename):
-    # 이진 파일 내용을 그대로 출력한다.
+    # 이진 파일을 읽어 문자열로 변환하여 출력한다.
     try:
         with open(filename, 'rb') as file:
             binary_data = file.read()
 
+        # 🔥 핵심: bytes → 문자열 변환
+        text_data = binary_data.decode('utf-8')
+
         print('\n' + '=' * 70)
-        print('Mars_Base_Inventory_List.bin 원본 출력')
+        print('Mars_Base_Inventory_List.bin 내용 출력')
         print('=' * 70)
 
-        print(binary_data)
+        print(text_data)
 
         print('=' * 70)
 
@@ -240,6 +243,8 @@ def read_from_binary(filename):
         print(f'이진 파일을 찾을 수 없습니다: {filename}')
     except PermissionError:
         print(f'이진 파일에 접근할 권한이 없습니다: {filename}')
+    except UnicodeDecodeError:
+        print('이진 데이터를 문자열로 변환할 수 없습니다.')
     except OSError as error:
         print(f'이진 파일을 읽는 중 오류가 발생했습니다: {error}')
 
