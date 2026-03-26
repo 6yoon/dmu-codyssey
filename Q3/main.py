@@ -183,7 +183,7 @@ def save_to_csv(filename, inventory_list):
 
 
 def save_to_binary(filename, inventory_list):
-    # 딕셔너리 리스트를 문자열로 변환 후 binary string으로 저장
+    # 딕셔너리 리스트를 바이트 형태로 변환하여 이진 파일로 저장한다.
     if not inventory_list:
         print('저장할 데이터가 없습니다.')
         return
@@ -207,17 +207,19 @@ def save_to_binary(filename, inventory_list):
         # 문자열로 합치기
         text_data = '\n'.join(lines)
 
-        # 🔥 여기 핵심: binary string으로 변환
-        binary_string = ' '.join(format(ord(char), '08b') for char in text_data)
+        # 문자열 → 바이트 변환
+        binary_data = text_data.encode('utf-8')
 
-        # 파일 저장 (텍스트 형태지만 내용은 binary string)
-        with open(filename, 'w', encoding='utf-8') as file:
-            file.write(binary_string)
+        # 이진 파일로 저장
+        with open(filename, 'wb') as file:
+            file.write(binary_data)
 
-        print(f'\nBinary Mapper 방식으로 저장 완료: {filename}')
+        print(f'\n이진 파일 저장 완료: {filename}')
 
-    except Exception as e:
-        print(f'오류 발생: {e}')
+    except PermissionError:
+        print(f'파일에 쓸 권한이 없습니다: {filename}')
+    except OSError as error:
+        print(f'이진 파일 저장 중 오류가 발생했습니다: {error}')
 
 
 def read_from_binary(filename):
