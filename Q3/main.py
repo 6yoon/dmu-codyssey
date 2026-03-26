@@ -228,7 +228,7 @@ def read_from_binary(filename):
         with open(filename, 'rb') as file:
             binary_data = file.read()
 
-        # 🔥 핵심: bytes → 문자열 변환
+        # bytes → 문자열 변환
         text_data = binary_data.decode('utf-8')
 
         print('\n' + '=' * 70)
