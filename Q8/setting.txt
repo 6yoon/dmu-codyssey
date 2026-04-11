@@ -1,0 +1,10 @@
+# 출력 항목 설정 파일
+# true: 출력, false: 미출력
+
+operating_system=true
+operating_system_version=true
+cpu_type=true
+cpu_core_count=true
+memory_size=true
+cpu_realtime_usage=true
+memory_realtime_usage=true
